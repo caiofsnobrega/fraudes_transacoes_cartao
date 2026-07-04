@@ -32,7 +32,7 @@ O desempenho dos algoritmos foi avaliado no conjunto de teste desbalanceado (cen
 
 *   **XGBoost (Vencedor):** O melhor equilíbrio foi entregue por este modelo, alcançando **0.83 de Precisão** e **0.87 de Recall**.
     
-*   **Regressão Logística:** Obteve alta taxa de Recall (0.89), porém com uma Precisão de 0.20, resultando em excesso de falsos positivos.
+*   **Regressão Logística:** Obteve alta taxa de Recall, 0.89, porém com uma Precisão de 0.20, resultando em excesso de falsos positivos.
     
 *   **SVM Linear (SVC):** Baixa taxa de precisão. O processo de otimização foi limitado a um teto de iterações (`max_iter=3000`). Devido à interrupção, o desempenho do modelo foi evidentemente prejudicado.
 
@@ -55,5 +55,13 @@ Após o término do script, para simular um cenário real em que o modelo seria 
 *   `threshold_calibrado.pkl`: o ponto de corte ideal definido.
 
 * * *
+
+### Visualizações Geradas em Destaque
+
+![Curva Precision-Recall](images_fraud/curva_pr.png)
+
+![Distribuições dos Valores de Transações por Classes](images_fraud/boxplot_amount_class.png)
+
+![Importância de Variáveis](images_fraud/importancia_variaveis.png)
 
 *Nota: Este projeto foi desenvolvido para fins acadêmicos e de portfólio profissional.*

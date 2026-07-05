@@ -2,7 +2,7 @@
 
 Este projeto foi desenvolvido como **Trabalho de Conclusão** para o **Curso de Ciência de Dados** da **EBAC (Escola Britânica de Artes Criativas e Tecnologia)**. 
 
-Durante o desenvolvimento de algumas das etapas de pré-processamento, otimização de hiperparâmetros, e plotagem da curva Precision x Recall, obtive suporte de tutoria e de ferramentas de inteligência artificial. Soluções eficientes para desafios de processamento computacional (como o travamento do algoritmo SVM) foram encontradas, garantindo que as melhores práticas fossem aplicadas.
+Nota: Durante o desenvolvimento de algumas etapas, como as de otimização de hiperparâmetros e calibração do modelo, contei com o suporte de ferramentas de inteligência artificial. Pude encontrar soluções eficientes também para desafios de processamento computacional (como o travamento do algoritmo SVM), garantindo a aplicação das melhores práticas. A elaboração da estrutura do projeto, metodologia utilizada, análises estatísticas e toda a produção textual, incluindo explanações, justificativas e insights, são de minha autoria.
 
 * * *
 
@@ -16,7 +16,7 @@ O objetivo do projeto é o de encontrar um modelo de machine learning que detect
 
 O fluxo do projeto foi estruturado em torno de algumas etapas, dentre as quais destaco:
 
-1.  **Separação Proporcional:** A divisão dos dados em conjuntos de treino e teste foi realizada por meio do parâmetro `stratify`, onde as proporções originais de fraudes foram mantidas em ambas as partições.
+1.  **Divisão Proporcional:** A separação dos dados em conjuntos de treino e teste foi realizada por meio do parâmetro `stratify`, onde as proporções originais de fraudes foram mantidas em ambas as partições.
    
 2.  **Normalização:** As variáveis *Time* e *Amount* foram padronizadas através do `RobustScaler`. Distorções provocadas por valores extremos foram amenizadas com a manutenção da proporção na distância entre os dados.
    
@@ -38,7 +38,7 @@ O desempenho dos algoritmos foi avaliado no conjunto de teste desbalanceado (cen
 
 * * *
 
-### ⚙️ Ajuste do Modelo e Explicabilidade
+### ⚙️ Ajuste do Modelo e Variáveis Importantes
 
 *   **Threshold Flexível:** O ponto de corte do XGBoost foi elevado para priorizar o cliente legítimo, evitando bloquear transações duvidosas em excesso. Para isso foi estabelecida uma meta de precisão de 90%, o que aumentou o limiar de probabilidades para se detectar fraudes, o que consequentemente causou a redução do Recall, mas mantendo taxa razoável de 84%.
   

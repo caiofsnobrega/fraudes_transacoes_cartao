@@ -1,4 +1,6 @@
-# 💳 Detecção de Fraudes em Cartão de Crédito com Machine Learning
+# Detecção de Fraudes em Cartão de Crédito com Machine Learning
+
+*[Click here for the English version](README-en.md)*
 
 Este projeto foi desenvolvido como **Trabalho de Conclusão** para o **Curso de Ciência de Dados** da **EBAC (Escola Britânica de Artes Criativas e Tecnologia)**. 
 
@@ -6,13 +8,13 @@ Nota: Durante o desenvolvimento de algumas etapas, como as de otimização de hi
 
 * * *
 
-### 🎯 Objetivo do Projeto
+### Objetivo do Projeto
 
 O objetivo do projeto é o de encontrar um modelo de machine learning que detecte e propicie o bloqueio de transações de cartão de crédito fraudulentas, garantindo ao mesmo tempo que transações legítimas de clientes não sejam impactadas por alarmes falsos. 
 
 * * *
 
-### 🛠️ Metodologia e Pipeline de Dados
+### Metodologia e Pipeline de Dados
 
 O fluxo do projeto foi estruturado em torno de algumas etapas, dentre as quais destaco:
 
@@ -26,7 +28,7 @@ O fluxo do projeto foi estruturado em torno de algumas etapas, dentre as quais d
 
 * * *
 
-### 📊 Modelos Testados e Resultados
+### Modelos Testados e Resultados
 
 O desempenho dos algoritmos foi avaliado no conjunto de teste desbalanceado (cenário real). As métricas obtidas são detalhadas a seguir:
 
@@ -38,7 +40,7 @@ O desempenho dos algoritmos foi avaliado no conjunto de teste desbalanceado (cen
 
 * * *
 
-### ⚙️ Ajuste do Modelo e Variáveis Importantes
+### Ajuste do Modelo e Variáveis Importantes
 
 *   **Threshold Flexível:** O ponto de corte do XGBoost foi elevado para priorizar o cliente legítimo, evitando bloquear transações duvidosas em excesso. Para isso foi estabelecida uma meta de precisão de 90%, o que aumentou o limiar de probabilidades para se detectar fraudes, o que consequentemente causou a redução do Recall, mas mantendo taxa razoável de 84%.
   

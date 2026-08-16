@@ -22,7 +22,9 @@ The project workflow was structured around several key stages, including:
 
 2.  **Normalization:** The *Time* and *Amount* variables were standardized using `RobustScaler`. Distortions caused by outliers were mitigated by preserving the relative distances between data points.
 
-3.  **Oversampling with SMOTE:** The significant class imbalance in the dataset was addressed using the SMOTE technique. A specific sampling limit of 20% was applied to generate new synthetic fraud cases, thereby avoiding a doubling of the already large original dataset's size. 4.  **Hyperparameter Optimization:** Searching for the best hyperparameters using `RandomizedSearchCV`, focusing on optimizing processing time through 3-fold cross-validation, limiting the number of iterations, and using the histogram-based method (`tree_method='hist'`).
+3.  **Oversampling with SMOTE:** The significant class imbalance in the dataset was addressed using the SMOTE technique. A specific sampling limit of 20% was applied to generate new synthetic fraud cases, thereby avoiding a doubling of the already large original dataset's size.
+
+4.  **Hyperparameter Optimization:** Searching for the best hyperparameters using `RandomizedSearchCV`, focusing on optimizing processing time through 3-fold cross-validation, limiting the number of iterations, and using the histogram-based method (`tree_method='hist'`).
 
 * * *
 

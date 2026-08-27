@@ -1,6 +1,6 @@
 # Credit Card Fraud Detection with Machine Learning
 
-*[Click here for the Portuguese version](README.md)*
+*[Clique aqui para a versão em português](README.md)*
 
 This project was developed as the **Capstone Project** for the **Data Science Course** at **EBAC (British School of Creative Arts and Technology)**.
 

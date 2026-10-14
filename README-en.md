@@ -4,47 +4,40 @@
 
 This project was developed as the **Capstone Project** for the **Data Science Course** at **EBAC (British School of Creative Arts and Technology)**.
 
-Note: During the development of certain stages—such as hyperparameter optimization and model calibration—I utilized artificial intelligence tools for support. I was also able to find efficient solutions for computational processing challenges (such as the SVM algorithm stalling), ensuring the application of best practices. The project structure, methodology, statistical analyses, and all written content—including explanations, justifications, and insights—are my own work.
+During development — especially during the fine-tuning stages and resolving computer performance bottlenecks (such as the freezing of the SVM artificial intelligence algorithm) —, I utilized AI tools to find faster solutions and implement programming best practices.
 
-* * *
+---
 
-### Project Objective
+### The Problem This Project Solves
 
-The goal of this project is to identify a machine learning model capable of detecting and enabling the blocking of fraudulent credit card transactions, while ensuring that legitimate customer transactions are not affected by false alarms.
+The goal is to build an intelligent system capable of **identifying fraudulent credit card transactions in real time**, allowing banks to block suspicious purchases before financial damage occurs.
 
-* * *
+All of this is done while maintaining a delicate balance: **blocking fraud without disrupting the customer's daily life** (avoiding the frustration of having a legitimate purchase mistakenly declined).
 
-### Methodology and Data Pipeline
+---
 
-The project workflow was structured around several key stages, including:
+### How the Project Was Built (Step by Step)
 
-1.  **Proportional Splitting:** Data was split into training and testing sets using the `stratify` parameter, ensuring the original fraud proportions were maintained in both partitions.
+To solve this problem, the project followed four main steps:
 
-2.  **Normalization:** The *Time* and *Amount* variables were standardized using `RobustScaler`. Distortions caused by outliers were mitigated by preserving the relative distances between data points.
+* **Data Organization:** The data was split evenly into "train" (for the system to learn) and "test" (to prove it works in practice), ensuring that the real-world proportion of fraud was maintained.
+* **Standardization:** Information like transaction *Time* and *Amount* underwent a mathematical adjustment so that extremely high or unusual numbers wouldn't confuse the system.
+* **Imbalance Correction:** Since the vast majority of daily transactions are legitimate and fraud is rare, the system used a special technique (called SMOTE) to generate controlled "example frauds." This helped the algorithim better recognize scams without bloating the database size.
+* **Fine-Tuning (Optimization):** The system automatically tested hundreds of combinations of mathematical settings to find the fastest and most accurate configuration.
 
-3.  **Oversampling with SMOTE:** The significant class imbalance in the dataset was addressed using the SMOTE technique. A specific sampling limit of 20% was applied to generate new synthetic fraud cases, thereby avoiding a doubling of the already large original dataset's size.
+---
 
-4.  **Hyperparameter Optimization:** Searching for the best hyperparameters using `RandomizedSearchCV`, focusing on optimizing processing time through 3-fold cross-validation, limiting the number of iterations, and using the histogram-based method (`tree_method='hist'`).
+### Tested Models and the Winner
 
-* * *
+The models were put to the test by simulating a real-world scenario (using imbalanced data):
 
-### Tested Models and Results
+* **XGBoost (The Grand Winner):** This model delivered the best overall balance. It achieved **83% accuracy when flagging fraud** (Precision) and successfully **caught 87% of all actual frauds** (Recall).
+* **Logistic Regression:** It managed to catch most frauds (89% Recall) but triggered too many false alarms — blocking the cards of many innocent customers (only 20% precision).
+* **Linear SVM:** Performance was hindered because the processing became too heavy and had to be stopped before completing all tests.
 
-Algorithm performance was evaluated on the imbalanced test set (simulating a real-world scenario). The resulting metrics are detailed below:
+#### Final Security Adjustment
+To further protect the customer, **XGBoost** went through a "sensitivity filter": the threshold required for the system to flag fraud was increased. As a result, precision jumped to **90%**, ensuring very few innocent customers had their cards blocked by mistake, while maintaining a strong fraud detection rate of **84%**.
 
-*   **XGBoost (Winner):** This model delivered the best balance, achieving **0.83 Precision** and **0.87 Recall**.
-
-*   **Logistic Regression:** Achieved a high Recall rate (0.89) but a Precision of only 0.20, resulting in an excessive number of false positives.
-
-*   **Linear SVM (SVC):** Low precision. The optimization process was capped at a maximum number of iterations (`max_iter=3000`). This early termination clearly hindered the model's performance.
-
-* * *
-
-### Model Tuning and Important Variables
-
-*   **Flexible Threshold:** The XGBoost classification threshold was raised to prioritize legitimate customers and avoid blocking too many questionable transactions. A precision target of 90% was set, raising the probability threshold for fraud detection; while this reduced Recall, a reasonable rate of 84% was maintained.
-
-*   **Feature Importance:** Assessment of each variable's importance based on the average gain across XGBoost trees.
 
 * * *
 
@@ -53,7 +46,8 @@ Algorithm performance was evaluated on the imbalanced test set (simulating a rea
 Upon completion of the script, and to simulate a real-world production deployment scenario, I generated three files for loading:
 
 *   `modelo_xgb.pkl`: the fitted model;
-*   `robust_scaler.pkl`: the normalization file; *   `threshold_calibrado.pkl`: the defined optimal cutoff point.
+*   `robust_scaler.pkl`: the normalization file;
+*   `threshold_calibrado.pkl`: the defined optimal cutoff point.
 
 * * *
 

@@ -1,50 +1,43 @@
-# Detecção de Fraudes em Cartão de Crédito com Machine Learning
+# Detecção de Fraudes em Cartão de Crédito com Aprendizado de Máquina
 
 *[Click here for the English version](README-en.md)*
 
-Este projeto foi desenvolvido como **Trabalho de Conclusão** para o **Curso de Ciência de Dados** da **EBAC (Escola Britânica de Artes Criativas e Tecnologia)**. 
+Este projeto foi desenvolvido como **Trabalho de Conclusão de Curso** da **EBAC** (Escola Britânica de Artes Criativas e Tecnologia). 
 
-Nota: Durante o desenvolvimento de algumas etapas, como as de otimização de hiperparâmetros e calibração do modelo, contei com o suporte de ferramentas de inteligência artificial. Pude encontrar soluções eficientes também para desafios de processamento computacional (como o travamento do algoritmo SVM), garantindo a aplicação das melhores práticas. A elaboração da estrutura do projeto, metodologia utilizada, análises estatísticas e toda a produção textual, incluindo explanações, justificativas e insights, são de minha autoria.
+Durante o desenvolvimento — especialmente em etapas como ajustes finos e resolução de gargalos no computador (como o travamento do algoritmo de inteligência artificial SVM) —, utilizei ferramentas de IA para encontrar caminhos mais rápidos e aplicar as melhores práticas de programação.
 
-* * *
+---
 
-### Objetivo do Projeto
+### O Problema que este Projeto Resolve
 
-O objetivo do projeto é o de encontrar um modelo de machine learning que detecte e propicie o bloqueio de transações de cartão de crédito fraudulentas, garantindo ao mesmo tempo que transações legítimas de clientes não sejam impactadas por alarmes falsos. 
+O objetivo é criar um sistema inteligente capaz de **identificar compras fraudulentas em um cartão de crédito em tempo real**, permitindo que o banco bloqueie a transação suspeita antes que o prejuízo aconteça. 
 
-* * *
+Tudo isso mantendo um equilíbrio delicado: **bloquear a fraude sem atrapalhar a vida do cliente** (evitando o estresse de ter uma compra legítima recusada por engano).
 
-### Metodologia e Pipeline de Dados
+---
 
-O fluxo do projeto foi estruturado em torno de algumas etapas, dentre as quais destaco:
+### Como o Projeto foi Realizado
 
-1.  **Divisão Proporcional:** A separação dos dados em conjuntos de treino e teste foi realizada por meio do parâmetro `stratify`, onde as proporções originais de fraudes foram mantidas em ambas as partições.
-   
-2.  **Normalização:** As variáveis *Time* e *Amount* foram padronizadas através do `RobustScaler`. Distorções provocadas por valores extremos foram amenizadas com a manutenção da proporção na distância entre os dados.
-   
-3.  **Superamostragem com SMOTE:** O alto desbalanceamento da base foi corrigido por meio da técnica SMOTE, com a particularidade da configuração de uma taxa limite de amostragem de 20%, pela qual novas fraudes sintéticas foram criadas, o que evitou a duplicação do tamanho da já extensa base original.
-   
-4.  **Otimização de Hiperparâmetros:** Buscas pelos melhores hiperparâmetros através do `RandomizedSearchCV`, focando na otimização do tempo de processamento como validação cruzada com 3 folds, limitação do número de iterações e método de histogramas (`tree_method='hist'`).
+Para resolver esse problema, o projeto seguiu quatro etapas principais:
 
-* * *
+* **Organização dos dados:** Os dados foram divididos de forma equilibrada entre "treino" (para o sistema aprender) e "teste" (para provar que ele funciona na prática), garantindo que a proporção real de fraudes fosse respeitada.
+* **Padronização:** Informações como o *horário* e o *valor* da compra passaram por um ajuste matemático para que números muito altos ou fora do padrão não confundissem o sistema.
+* **Correção do desequilíbrio:** Como a imensa maioria das compras do dia a dia são verdadeiras e as fraudes são raras, o sistema usou uma técnica especial (chamada SMOTE) para criar novas amostras de fraudes de forma controlada. Isso ajudou o algoritmo a enxergar melhor o que é um golpe, sem inchar o tamanho do banco de dados.
+* **Ajuste fino (Otimização):** O sistema testou centenas de combinações de configurações matemáticas automaticamente para descobrir qual delas era a mais rápida e precisa.
 
-### Modelos Testados e Resultados
+---
 
-O desempenho dos algoritmos foi avaliado no conjunto de teste desbalanceado (cenário real). As métricas obtidas são detalhadas a seguir:
+### Os Modelos Testados e Quem Venceu
 
-*   **XGBoost (Vencedor):** O melhor equilíbrio foi entregue por este modelo, alcançando **0.83 de Precisão** e **0.87 de Recall**.
-    
-*   **Regressão Logística:** Obteve alta taxa de Recall, 0.89, porém com uma Precisão de 0.20, resultando em excesso de falsos positivos.
-    
-*   **SVM Linear (SVC):** Baixa taxa de precisão. O processo de otimização foi limitado a um teto de iterações (`max_iter=3000`). Devido à interrupção, o desempenho do modelo foi evidentemente prejudicado.
+Os modelos foram colocados à prova simulando a vida real (com dados desbalanceados):
 
-* * *
+* **XGBoost (O Grande Vencedor):** Foi o que apresentou o melhor resultado geral. Conseguiu acertar **83% das vezes quando dizia que era fraude** (Precisão) e conseguiu **pegar 87% de todas as fraudes que realmente aconteceram** (Recall).
+* **Regressão Logística:** Conseguiu identificar a maioria das fraudes (89% de Recall), mas disparava muitos alarmes falsos — bloqueando o cartão em transações legítimas (apenas 20% de precisão).
+* **SVM Linear:** Teve um desempenho prejudicado porque o processamento ficou muito pesado e precisou ser interrompido antes de terminar todos os testes.
 
-### Ajuste do Modelo e Variáveis Importantes
+#### Ajuste final de segurança
+Para proteger ainda mais o cliente, o **XGBoost** passou por um "filtro de sensibilidade": o nível de exigência para o sistema identificar uma fraude foi aumentado. Com isso, a precisão saltou para **90%**, garantindo que poucos clientes inocentes tivessem o cartão bloqueado por engano, mantendo uma taxa de detecção de fraudes de **84%**.
 
-*   **Threshold Flexível:** O ponto de corte do XGBoost foi elevado para priorizar o cliente legítimo, evitando bloquear transações duvidosas em excesso. Para isso foi estabelecida uma meta de precisão de 90%, o que aumentou o limiar de probabilidades para se detectar fraudes, o que consequentemente causou a redução do Recall, mas mantendo taxa razoável de 84%.
-  
-*   **Feature Importance:** Verificação da importância de cada variável para avaliar o ganho médio das árvores do XGBoost.
 
 * * *
 
